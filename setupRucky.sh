@@ -40,9 +40,10 @@ apt install -y hostapd dnsmasq
 mkdir /usr/rucky
 cat <<EOF > /usr/rucky/hostapd.cfg
 interface=wlan0
-ssid=RUCKY
-channel=1
 driver=nl80211
+ssid=RUCKY
+hw_mode=g
+channel=1
 EOF
 cat <<EOF > /usr/rucky/dnsmasq.cfg
 interface=wlan0
@@ -51,14 +52,15 @@ dhcp-option=3,192.168.1.1
 dhcp-option=6,192.168.1.1
 address=/#/192.168.1.1
 EOF
+cat<<EOF > /etc/dhcpd.conf
+interface wlan0
+    static ip_address=192.168.4.1/24
+    nohook wpa_supplicant
+EOF
 cat <<EOF > /usr/rucky/setwlan.sh
-ifconfig wlan0 down
-hostapd -B /usr/rucky/hostapd.cfg
 dnsmasq -C /usr/rucky/dnsmasq.cfg
-ifconfig wlan0 up
 ifconfig wlan0 192.168.1.1 netmask 255.255.255.0
+hostapd -B /usr/rucky/hostapd.cfg
 EOF
 chmod +x /usr/rucky/setwlan.sh
-mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.cong.bk
-touch /etc/wpa_supplicant/wpa_supplicant.conf
 reboot
