@@ -1,10 +1,8 @@
 echo "dtoverlay=dwc2" >> /boot/config.txt
-echo "dwc" >> /etc/modules
+echo "dwc2" >> /etc/modules
 echo "libcomposite" >> /etc/modules
-echo "g_ether" >> /etc/modules
 sed -i '/^exit 0$/i \
 /usr/bin/hidg0
-/usr/rucky/setwlan.sh
 ' /etc/rc.local
 cat <<EOF > /usr/bin/hidg0
 #!/bin/bash
@@ -35,33 +33,4 @@ ls /sys/class/udc > UDC
 chmod +x /dev/hidg0
 EOF
 chmod +x /usr/bin/hidg0
-apt update
-apt upgrade -y
-apt install -y hostapd dnsmasq
-mkdir /usr/rucky
-cat <<EOF > /usr/rucky/hostapd.cfg
-interface=wlan0
-driver=nl80211
-ssid=RUCKY
-hw_mode=g
-channel=1
-EOF
-cat <<EOF > /usr/rucky/dnsmasq.cfg
-interface=wlan0
-dhcp-range=192.168.1.10,192.168.1.20,255.255.255.0,8h
-dhcp-option=3,192.168.1.1
-dhcp-option=6,192.168.1.1
-address=/#/192.168.1.1
-EOF
-cat<<EOF > /etc/dhcpd.conf
-interface wlan0
-    static ip_address=192.168.4.1/24
-    nohook wpa_supplicant
-EOF
-cat <<EOF > /usr/rucky/setwlan.sh
-dnsmasq -C /usr/rucky/dnsmasq.cfg
-ifconfig wlan0 192.168.1.1 netmask 255.255.255.0
-hostapd -B /usr/rucky/hostapd.cfg
-EOF
-chmod +x /usr/rucky/setwlan.sh
 reboot
