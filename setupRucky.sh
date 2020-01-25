@@ -1,6 +1,7 @@
 echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc" >> /etc/modules
 echo "libcomposite" >> /etc/modules
+echo "g_ether" >> /etc/modules
 sed -i '/^exit 0$/i \
 /usr/bin/hidg0
 /usr/rucky/setwlan.sh
