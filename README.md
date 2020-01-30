@@ -14,5 +14,5 @@ Raspberry Pi Extension for Rucky
 - Execute [wlanSetup.sh](https://raw.githubusercontent.com/mayankmetha/Rucky-Ext-RPi/master/wlanSetup.sh) using `sudo bash wlanSetup.sh`.
 - Connect to `RUCKY` AP/Wi-Fi network for futher setup. 
 - If ethernet ssh is enabled in cmdline.txt and config.txt, disable it.
-- Execute [USB HID Driver Setup](https://raw.githubusercontent.com/mayankmetha/Rucky-Ext-RPi/master/setupRucky.sh) using `sudo bash setupRucky.sh`.
+- Execute [USB HID Driver Setup](https://raw.githubusercontent.com/mayankmetha/Rucky-Ext-RPi/master/setupRucky.sh) using `sudo bash hidSetup.sh`.
 - TODO: Still under development
