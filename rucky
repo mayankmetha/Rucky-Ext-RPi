@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+import socket
+import sys
+import subprocess
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('', 5000))
+sock.listen(1)
+
+while True:
+    connection, client_address = sock.accept()
+    try:
+        print('connection from', client_address)
+        f = open('/tmp/rucky','wb')
+        while True:
+            data = connection.recv(1024)
+            if data:
+                f.write(data)
+            else:
+                break
+        f.close()
+        subprocess.Popen(["bash","/tmp/rucky"]).wait()
+        subprocess.Popen(["rm","-rf","/tmp/rucky"]).wait()
+    finally:
+        connection.close()

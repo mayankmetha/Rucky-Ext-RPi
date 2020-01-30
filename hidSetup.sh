@@ -1,8 +1,10 @@
+#!/bin/bash
 echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc2" >> /etc/modules
 echo "libcomposite" >> /etc/modules
 sed -i '/^exit 0$/i \
 /usr/bin/hidg0
+/usr/bin/rucky
 ' /etc/rc.local
 cat <<EOF > /usr/bin/hidg0
 #!/bin/bash
@@ -33,4 +35,6 @@ ls /sys/class/udc > UDC
 chmod +x /dev/hidg0
 EOF
 chmod +x /usr/bin/hidg0
+mv "$(dirname "$0")"/rucky /usr/bin/rucky
+chmod +x /usr/bin/rucky
 reboot
