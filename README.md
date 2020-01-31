@@ -13,6 +13,6 @@ Raspberry Pi Extension for Rucky
 - Add a password to this file after `wpa_passphrase=` on the same line.
 - Execute [wlanSetup.sh](https://raw.githubusercontent.com/mayankmetha/Rucky-Ext-RPi/master/wlanSetup.sh) using `sudo bash wlanSetup.sh`.
 - Connect to `RUCKY` AP/Wi-Fi network for futher setup. 
-- If ethernet ssh is enabled in cmdline.txt and config.txt, disable it.
+- If ethernet ssh `g_ether` is enabled in cmdline.txt disable it.
 - Execute [USB HID Driver Setup](https://raw.githubusercontent.com/mayankmetha/Rucky-Ext-RPi/master/setupRucky.sh) using `sudo bash hidSetup.sh`.
-- TODO: Still under development
+- Reboot and connect RUCKY Device to Pi and Enjoy!
