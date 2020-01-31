@@ -10,7 +10,6 @@ sock.listen(1)
 while True:
     connection, client_address = sock.accept()
     try:
-        print('connection from', client_address)
         f = open('/tmp/rucky','wb')
         while True:
             data = connection.recv(1024)
