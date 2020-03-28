@@ -10,6 +10,10 @@ sock.listen(1)
 while True:
     connection, client_address = sock.accept()
     try:
+        subprocess.Popen(["hidk"]).wait()
+    except:
+        pass
+    try:
         f = open('/tmp/rucky','wb')
         while True:
             data = connection.recv(1024)
