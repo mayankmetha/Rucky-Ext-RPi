@@ -7,6 +7,17 @@ echo "libcomposite" >> /etc/modules
 sed -i '/^exit 0$/i \
 /usr/bin/rucky
 ' /etc/rc.local
+cat <<EOF > /etc/avahi/services/rucky.service
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+  <name>Rucky</name>
+  <service>
+    <type>_rucky._tcp</type>
+    <port>5000</port>
+  </service>
+</service-group>
+EOF
 cat <<EOF > /usr/bin/hidk
 #!/bin/bash
 cd /sys/kernel/config/usb_gadget/
